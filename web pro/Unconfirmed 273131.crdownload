@@ -1,0 +1,58 @@
+const express=require('express')
+const data = require('../schema/data')
+const path=require('path')
+const DateScheme = require('../schema/data')
+const {login,getter} = require('../middleware/login')
+let router=express.Router()
+let parameter=express.Router()
+//router.use(login("Test"));
+const obj=[];
+
+module.exports={router,parameter};
+
+router.route('/display').post(login(obj),(req,res)=>{console.log(req.body.name+"  BROO  "+req.body.Text)}).get(login(obj),(req,res)=>{res.sendFile('index.html',{root:'./public/'}),console.log("test2 "+Date.now())});
+router.route('/login').get(async(req,res)=>{res.sendFile('login.html',{root:'./public/'})})
+.post(async(req,res)=>{
+ console.log(req.body.email+" ffffffffffffffffffffff  "+req.body.password)
+ const data=await DateScheme.findOne({Email:req.body.email,Password:req.body.password});
+ if(data){
+console.log('INSIDE '+data);
+res.json("DONEE");
+obj[0]=req.body.name,obj[1]=(req.body.Text);
+res.send();
+ }
+ else
+ {
+  console.log("user dosent exists")
+ // dialog.info("invalid user","error")
+ //alt('invalid user')
+ obj[0]='',obj[1]='';
+ res.send()
+ }
+})
+
+router.route('/error').get(async (req,res)=>{res.sendFile('error.html',{root:'./public/'})})
+router.route('/send').get((req,res)=>{res.sendFile('send.html',{root:'./public/'})})
+.post(async(req,res)=>{
+  
+  const data=await  DateScheme.create({
+    "goals":req.body.goals,
+     "assists":req.body.assits,
+     "name":req.body.name,
+     "position":req.body.position,
+     "Country":req.body.country,
+     "listings":req.body.appereances,
+  });
+
+  console.log("sucess  "+data)
+}
+)
+router.route('/REG').get(async (req,res)=>{
+  res.sendFile('reg.html',{root:'./public/'})
+}).post(async(req,res)=>{
+  console.log(req.body.name+"   "+req.body.Text)
+  const data=await DateScheme.create({Email:req.body.name,Password:req.body.Text});
+  console.log(data);
+  res.json();
+ })
+

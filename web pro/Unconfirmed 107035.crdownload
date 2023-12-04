@@ -1,0 +1,22 @@
+function postdata()
+    {
+        console.log("clicked");
+        const xhr = new XMLHttpRequest();
+        var data={
+            email:document.getElementById('inp_username').value,
+            password:document.getElementById('inp_passw').value,
+            phone_no:document.getElementById('inp_phone').value   
+        }
+        console.log(data.email+data.password+data.phone_no)
+xhr.open('POST', "http://localhost:7080/login");
+xhr.setRequestHeader('Content-Type','application/JSON',true)
+xhr.onreadystatechange = () => {
+  if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+    console.log("passed "+xhr.responseText)
+    alert('User is present!!')
+window.location.href='http://localhost:7080/display'
+  }
+};
+xhr.send(JSON.stringify(data));
+
+    } 

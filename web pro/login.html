@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Login Form</title>
+    <link rel="stylesheet" href="UMANG.css">
+    <script>
+        function postdata()
+    {
+        console.log("clicked");
+        const xhr = new XMLHttpRequest();
+        var data={
+            email:document.getElementById('inp_username').value,
+            password:document.getElementById('inp_passw').value,   
+        }
+        console.log(data.email+data.password+data.phone_no)
+xhr.open('POST', "http://localhost:7080/login");
+xhr.setRequestHeader('Content-Type','application/JSON',true)
+xhr.onreadystatechange = () => {
+  if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+    console.log("passed "+xhr.responseText)
+    alert('PROCESSING')
+window.location.href='http://localhost:7080/display'
+  }
+};
+xhr.send(JSON.stringify(data));
+
+
+    } 
+    </script>
+</head>
+<body>
+
+    <div class="img" ></div>
+    <div class="center">
+        <h1 style="text-decoration: underline; font-size: 700; font-weight: 500 ;">Login</h1>
+        <form >
+            <div class="txtfield">
+                <input id="inp_username" type="text" required>
+                <span></span>
+                <label>Username</label>
+            </div><br>
+            <div class="passfield">
+                <input id="inp_passw" type="password" required>
+                <span></span>
+                <label>Password</label>
+            </div><br>
+            <!-- <div class="phonefield">
+                <input id="inp_phone" type="number" required>
+                <span></span>
+                <label>Phone No.</label>
+            </div><br> -->
+        </form>
+        <div style="padding-right: 40px;padding-left:50px; padding-bottom: 50px;">
+        <button ID="button" onclick="postdata()" >Sign in</button>
+           </div>
+    </div>
+    
+    
+</body>
+</html>

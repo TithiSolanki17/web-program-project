@@ -1,0 +1,39 @@
+const mongoose=require('mongoose')
+//import isEmail from 'validator/lib/isEmail';
+//import PasswordValidator from 'password-validator';
+const dScheme=mongoose.Schema(
+    {
+        Email:{
+        type:String,
+        },
+       Password:{
+        type:String,
+       },
+       name:
+       {
+        type:String,
+       },
+       position:
+       {
+        type:String
+       },
+       Country:
+       {
+        type:String
+       },
+       goals:
+       {
+        type:String
+       },
+       listings:
+       {
+        type:String
+       },
+       assists:
+       {
+        type:String
+       }
+        }
+)
+const DateScheme=mongoose.model('DateScheme',dScheme);
+module.exports=DateScheme;
